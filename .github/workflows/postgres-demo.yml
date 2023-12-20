@@ -1,0 +1,44 @@
+# https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+name: PostgreSQL service example
+on: push
+
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+
+    # https://hub.docker.com/_/rust
+    container: rust:latest
+
+    services:
+      postgres:
+        # https://hub.docker.com/_/postgres
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+
+        # Set health checks to wait until postgres has started
+        options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # https://github.com/actions/cache/blob/main/examples.md#rust---cargo
+    - uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+    - name: Build
+      run: cargo build --verbose
+
+    - name: Run integration tests
+      run: cargo test --test '*' --verbose
