@@ -40,9 +40,9 @@ jobs:
     - name: Build
       run: cargo build --verbose
       env:
-        DATABASE_URL: "postgres://postgres:postgres@localhost/postgres"
+        DATABASE_URL: "postgres://postgres:postgres@postgres/postgres"
 
     - name: Run integration tests
       run: cargo test --test '*' --verbose
       env:
-        DATABASE_URL: "postgres://postgres:postgres@localhost/postgres"
+        DATABASE_URL: "postgres://postgres:postgres@postgres/postgres"
