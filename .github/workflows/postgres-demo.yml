@@ -38,7 +38,9 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
     - name: Setup database
-      run: cargo sqlx database setup
+      run: |
+        cargo install sqlx-cli --no-default-features --features native-tls,postgres
+        cargo sqlx database setup
       env:
         DATABASE_URL: "postgres://postgres:postgres@postgres/postgres"
 
