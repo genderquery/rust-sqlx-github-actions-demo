@@ -1,0 +1,26 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from messages",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "message",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "4d3dadd55d4328fba55010228eef5d8e58f6485c7b6aa30e5d51809b1326b1fa"
+}
