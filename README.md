@@ -1,1 +1,1 @@
-# rust-github-actions-demo
+# rust-sqlx-github-actions-demo
